@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { FeedBack } from "./feedbacks/feedbacks.model";
 import { FeedbacksModule } from "./feedbacks/feedbacks.module";
@@ -8,16 +7,22 @@ import { FeedbacksModule } from "./feedbacks/feedbacks.module";
   controllers: [],
   providers: [],
   imports: [
-    ConfigModule.forRoot({ envFilePath: `.${process.env.NODE_ENV}.env` }),
     SequelizeModule.forRoot({
       dialect: "postgres",
-      host: process.env.POSTGRESS_HOST,
-      port: Number(process.env.POSTGRESS_PORT),
-      username: process.env.POSTGRESS_USER,
-      password: process.env.POSTGRESS_PASSWORD,
-      database: process.env.POSTGRESS_DB,
+      host: "ec2-34-247-172-149.eu-west-1.compute.amazonaws.com",
+      port: 5432,
+      username: "ytcfmuxpcndvhm",
+      password:
+        "529c292862ea99f81b7db346216f7e7dd368b53f8dfdd3f1c9e395724a8f3b9e",
+      database: "dj3vg61t43voa",
       models: [FeedBack],
       autoLoadModels: true,
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
     }),
     FeedbacksModule,
   ],
