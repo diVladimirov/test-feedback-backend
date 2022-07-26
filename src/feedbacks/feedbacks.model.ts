@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 interface FeedBackCreationAttrs {
@@ -8,6 +9,7 @@ interface FeedBackCreationAttrs {
 
 @Table({ tableName: "feddbacks" })
 export class FeedBack extends Model<FeedBack, FeedBackCreationAttrs> {
+  @ApiProperty({ example: 1, description: "Unique identificator" })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -16,12 +18,14 @@ export class FeedBack extends Model<FeedBack, FeedBackCreationAttrs> {
   })
   id: number;
 
+  @ApiProperty({ example: "test", description: "User name" })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   name: string;
 
+  @ApiProperty({ example: "test@gmail.com", description: "User email" })
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -29,6 +33,7 @@ export class FeedBack extends Model<FeedBack, FeedBackCreationAttrs> {
   })
   email: string;
 
+  @ApiProperty({ example: "test message", description: "User message" })
   @Column({
     type: DataType.STRING,
     allowNull: false,
